@@ -2,6 +2,7 @@
 import { galleryItems } from './gallery-items';
 import SimpleLightbox from 'simplelightbox';
 import 'simplelightbox/dist/simple-lightbox.min.css';
+
 // Change code below this line
 const imgContainer = document.querySelector('.gallery');
 
@@ -15,12 +16,16 @@ const imgGallery = galleryItems.map(elem => {
 
 imgContainer.insertAdjacentHTML('beforeend', imgGallery.join(''));
 
-function showModal(e) {
-  e.preventDefault();
-  //   const captionEl = e.target.alt;
-  //   я так і не зміг розібратись як зробити підпис
-
-  var $gallery = new SimpleLightbox('.gallery a', {});
-}
-
-imgContainer.addEventListener('click', showModal);
+const lightbox = new SimpleLightbox('.gallery a', {
+  captionsData: 'alt',
+  captionPosition: 'bottom',
+  captionDelay: 250,
+});
+const images = imgContainer.querySelectorAll('.gallery__image');
+images.forEach(image => {
+  image.addEventListener('click', e => {
+    e.preventDefault();
+    const imageUrl = image.dataset.source;
+    lightbox.open(`<img width="1400" height="900" src="${imageUrl}">`);
+  });
+});
