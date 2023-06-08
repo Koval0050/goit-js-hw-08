@@ -21,11 +21,3 @@ const lightbox = new SimpleLightbox('.gallery a', {
   captionPosition: 'bottom',
   captionDelay: 250,
 });
-const images = imgContainer.querySelectorAll('.gallery__image');
-images.forEach(image => {
-  image.addEventListener('click', e => {
-    e.preventDefault();
-    const imageUrl = image.dataset.source;
-    lightbox.open(`<img width="1400" height="900" src="${imageUrl}">`);
-  });
-});
